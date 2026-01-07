@@ -579,10 +579,10 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
       width: 32,
       height: 32,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.3),
+        color: Colors.black.withOpacity(0.3),
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: const Color(0xFF9BA8AB).withValues(alpha: 0.3),
+          color: const Color(0xFF9BA8AB).withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -663,7 +663,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
       child: GestureDetector(
         onTap: _closePortfolioModal,
         child: Container(
-          color: Colors.black.withValues(alpha: 0.7),
+          color: Colors.black.withOpacity(0.7),
           child: Center(
             child: SlideTransition(
               position: _modalSlideAnimation,
@@ -678,7 +678,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.5),
+                        color: Colors.black.withOpacity(0.5),
                         blurRadius: 20,
                         spreadRadius: 5,
                       ),
@@ -773,7 +773,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
                                         borderRadius: BorderRadius.circular(8),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withValues(alpha: 0.2),
+                                            color: Colors.black.withOpacity(0.2),
                                             blurRadius: 10,
                                             spreadRadius: 2,
                                           ),
@@ -845,7 +845,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
                                     borderRadius: BorderRadius.circular(8),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: const Color(0xFF4169E1).withValues(alpha: 0.4),
+                                        color: const Color(0xFF4169E1).withOpacity(0.4),
                                         blurRadius: 8,
                                         spreadRadius: 2,
                                       ),
@@ -1006,8 +1006,8 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                     colors: [
-                      Colors.black.withValues(alpha: 0.8),
-                      Colors.black.withValues(alpha: 0.4),
+                      Colors.black.withOpacity(0.8),
+                      Colors.black.withOpacity(0.4),
                       Colors.transparent,
                     ],
                   ),
@@ -1134,11 +1134,11 @@ class _AnimatedHoverButtonState extends State<_AnimatedHoverButton>
                         colors: [
                           const Color(0xFF4169E1), // Royal blue - bright
                           const Color(0xFF1E90FF), // Dodger blue
-                          const Color(0xFF0066CC).withValues(alpha: 0.3), // Deep blue - dim
+                          const Color(0xFF0066CC).withOpacity(0.3), // Deep blue - dim
                           const Color(0xFF1E90FF), // Dodger blue
                           const Color(0xFF4169E1), // Royal blue - bright
                           const Color(0xFF1E90FF), // Dodger blue
-                          const Color(0xFF0066CC).withValues(alpha: 0.3), // Deep blue - dim
+                          const Color(0xFF0066CC).withOpacity(0.3), // Deep blue - dim
                           const Color(0xFF1E90FF), // Dodger blue
                           const Color(0xFF4169E1), // Royal blue - bright
                         ],
@@ -1154,7 +1154,7 @@ class _AnimatedHoverButtonState extends State<_AnimatedHoverButton>
                 boxShadow: _isHovered
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF4169E1).withValues(alpha: 0.6),
+                          color: const Color(0xFF4169E1).withOpacity(0.6),
                           blurRadius: 20,
                           spreadRadius: 2,
                         ),
@@ -1217,7 +1217,7 @@ class _StarField extends StatelessWidget {
                 width: 2,
                 height: 2,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFCCD0CF).withValues(alpha: 0.9),
+                  color: const Color(0xFFCCD0CF).withOpacity(0.9),
                   shape: BoxShape.circle,
                 ),
               ),
@@ -1299,11 +1299,11 @@ class _AnimatedHoverPortfolioCardState extends State<_AnimatedHoverPortfolioCard
                         colors: [
                           const Color(0xFF4169E1), // Royal blue - bright
                           const Color(0xFF1E90FF), // Dodger blue
-                          const Color(0xFF0066CC).withValues(alpha: 0.3), // Deep blue - dim
+                          const Color(0xFF0066CC).withOpacity(0.3), // Deep blue - dim
                           const Color(0xFF1E90FF), // Dodger blue
                           const Color(0xFF4169E1), // Royal blue - bright
                           const Color(0xFF1E90FF), // Dodger blue
-                          const Color(0xFF0066CC).withValues(alpha: 0.3), // Deep blue - dim
+                          const Color(0xFF0066CC).withOpacity(0.3), // Deep blue - dim
                           const Color(0xFF1E90FF), // Dodger blue
                           const Color(0xFF4169E1), // Royal blue - bright
                         ],
@@ -1313,20 +1313,20 @@ class _AnimatedHoverPortfolioCardState extends State<_AnimatedHoverPortfolioCard
                 border: _isHovered
                     ? null
                     : Border.all(
-                        color: const Color(0xFF9BA8AB).withValues(alpha: 0.2),
+                        color: const Color(0xFF9BA8AB).withOpacity(0.2),
                         width: 1,
                       ),
                 boxShadow: _isHovered
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF4169E1).withValues(alpha: 0.6),
+                          color: const Color(0xFF4169E1).withOpacity(0.6),
                           blurRadius: 20,
                           spreadRadius: 2,
                         ),
                       ]
                     : [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.3),
+                          color: Colors.black.withOpacity(0.3),
                           blurRadius: 8,
                           spreadRadius: 2,
                         ),
@@ -1365,7 +1365,7 @@ class _AnimatedHoverPortfolioCardState extends State<_AnimatedHoverPortfolioCard
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withValues(alpha: 0.7),
+                            Colors.black.withOpacity(0.7),
                           ],
                         ),
                       ),
@@ -1383,7 +1383,7 @@ class _AnimatedHoverPortfolioCardState extends State<_AnimatedHoverPortfolioCard
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withValues(alpha: 0.9),
+                              Colors.black.withOpacity(0.9),
                             ],
                           ),
                         ),
