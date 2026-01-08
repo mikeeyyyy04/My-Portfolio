@@ -3,6 +3,15 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
+/// Project color palette
+class AppColors {
+  static const navy = Color(0xFF2F4156);
+  static const teal = Color(0xFF56708D);
+  static const beige = Color(0xFFF5EEE8);
+  static const skyBlue = Color(0xFFC0D9E6);
+  static const white = Color(0xFFFFFFFF);
+}
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -19,9 +28,23 @@ class MyApp extends StatelessWidget {
       title: 'Portfolio',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF4A5C6A),
-          brightness: Brightness.dark,
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: AppColors.navy,
+          onPrimary: AppColors.white,
+          secondary: AppColors.teal,
+          onSecondary: AppColors.white,
+          background: AppColors.beige,
+          onBackground: AppColors.navy,
+          surface: AppColors.white,
+          onSurface: AppColors.navy,
+          error: Colors.red,
+          onError: Colors.white,
+        ),
+        scaffoldBackgroundColor: AppColors.beige,
+        textTheme: GoogleFonts.interTextTheme().apply(
+          bodyColor: AppColors.navy,
+          displayColor: AppColors.navy,
         ),
         useMaterial3: true,
       ),
@@ -156,7 +179,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 
   Future<void> _openResume() async {
     // TODO: Replace this URL with the actual location of your resume PDF
-    final uri = Uri.parse('https://drive.google.com/file/d/14Okf3u5ySAMB3XHBT87K5eqcykCEOSWo/view?usp=sharing');
+    final uri = Uri.parse('https://drive.google.com/file/d/173bF-xRDINPHiSXFLRPPhvDHDAsIYOlH/view?usp=drive_link');
 
     if (await canLaunchUrl(uri)) {
       await launchUrl(
@@ -180,7 +203,7 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
     // Get PDF URL based on selected portfolio item
     switch (_selectedPortfolioItem) {
       case 'She Captures':
-        pdfUrl = 'https://drive.google.com/file/d/1XWDumnLjV8qNG8zhQS90rzJZMa8YZgOM/view?usp=sharing';
+        pdfUrl = 'https://drive.google.com/file/d/1XWDumnLjV8qNG8zhQS90rzJZMa8YZgOM/view?usp=drive_link';
         break;
       case 'She Records':
       case 'She Excels':
@@ -276,27 +299,20 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Background image
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/back.jpg', // Change this to your image filename
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              // Fallback to gradient if image not found
-              return Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xFF06141B), // Very dark blue-grey
-                      Color(0xFF11212D), // Dark blue-grey
-                      Color(0xFF253745), // Medium-dark blue-grey
-                    ],
-                  ),
-                ),
-              );
-            },
+        // Gradient background (palette-based, no photo)
+        const Positioned.fill(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.navy,
+                  AppColors.teal,
+                  AppColors.skyBlue,
+                ],
+              ),
+            ),
           ),
         ),
         // Star particles - only show on Home page
@@ -382,80 +398,262 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 
   Widget _buildMainContent() {
     return Padding(
-      padding: const EdgeInsets.only(left: 120.0, top: 60.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 80.0, vertical: 40.0),
+      child: Row(
         children: [
-          // Animated running dog art above first name
-          AnimatedBuilder(
-            animation: _dogAnimation,
-            builder: (context, child) {
-              // Add slight vertical bounce for running effect
-              final bounce = (math.sin(_dogAnimationController.value * 2 * math.pi) * 5);
-              return Transform.translate(
-                offset: Offset(_dogAnimation.value, bounce),
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '🐕',
-                    style: TextStyle(fontSize: 60),
+          // LEFT: Text content
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Animated running dog art above first name
+                  AnimatedBuilder(
+                    animation: _dogAnimation,
+                    builder: (context, child) {
+                      // Add slight vertical bounce for running effect
+                      final bounce = (math.sin(_dogAnimationController.value * 2 * math.pi) * 5);
+                      return Transform.translate(
+                        offset: Offset(_dogAnimation.value, bounce),
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '🐕',
+                            style: TextStyle(fontSize: 60),
+                          ),
+                        ),
+                      );
+                    },
                   ),
+                  const SizedBox(height: 20),
+                  
+                  // First name (smaller, lighter)
+                  Text(
+                    'MIKE LEUSTER',
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFFCCD0CF),
+                      fontSize: 50,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                  
+                  // Last name (much larger, bold) - moved up for tighter spacing
+                  Transform.translate(
+                    offset: const Offset(0, -24),
+                    child: Text(
+                      'ESTRADA',
+                      style: GoogleFonts.inter(
+                        color: const Color(0xFFCCD0CF),
+                        fontSize: 96,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4,
+                      ),
+                    ),
+                  ),
+                  
+                  // Subtitle - moved up for tighter spacing and wider letter spacing to align with last name
+                  Transform.translate(
+                    offset: const Offset(0, -32),
+                    child: Text(
+                      'BS in Computer Engineering',
+                      style: GoogleFonts.inter(
+                        color: const Color(0xFFCCD0CF),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 9,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+                  
+                  // Buttons - aligned with subtitle
+                  Row(
+                    children: [
+                      _buildOutlineButton('Resume'),
+                      const SizedBox(width: 24),
+                      _buildOutlineButton('Portfolio'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 60),
+
+          // RIGHT: Photo with decorative shapes
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: const Alignment(0.2, 0),
+              child: SizedBox(
+                width: 720,
+                height: 820,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Background gradient circles
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: _CircularGradientPainter(),
+                      ),
+                    ),
+                    
+                    // Large circular outline with white neon gradient
+                    CustomPaint(
+                      size: const Size(630, 630),
+                      painter: _GradientCirclePainter(
+                        radius: 315,
+                        width: 4.5,
+                        colors: [
+                          Colors.white.withOpacity(0.9),
+                          Colors.white.withOpacity(0.7),
+                          Colors.white.withOpacity(0.5),
+                          Colors.white.withOpacity(0.9),
+                        ],
+                      ),
+                    ),
+                    // Medium circular outline with white neon gradient
+                    CustomPaint(
+                      size: const Size(550, 550),
+                      painter: _GradientCirclePainter(
+                        radius: 275,
+                        width: 4,
+                        colors: [
+                          Colors.white.withOpacity(0.8),
+                          Colors.white.withOpacity(0.6),
+                          Colors.white.withOpacity(0.4),
+                        ],
+                      ),
+                    ),
+                    // Small circular outline with white neon gradient
+                    CustomPaint(
+                      size: const Size(470, 470),
+                      painter: _GradientCirclePainter(
+                        radius: 235,
+                        width: 3.5,
+                        colors: [
+                          Colors.white.withOpacity(0.7),
+                          Colors.white.withOpacity(0.5),
+                          Colors.white.withOpacity(0.3),
+                        ],
+                      ),
+                    ),
+
+                    // Floating orbs with gradients - top left (large)
+                    Positioned(
+                      top: 30,
+                      left: 15,
+                      child: _buildGradientOrb(size: 110),
+                    ),
+                    // Floating orb - top center
+                    Positioned(
+                      top: 60,
+                      right: 70,
+                      child: _buildGradientOrb(size: 65),
+                    ),
+                    // Floating orb - bottom right
+                    Positioned(
+                      bottom: 20,
+                      right: 10,
+                      child: _buildGradientOrb(size: 90),
+                    ),
+                    // Floating orb - bottom left
+                    Positioned(
+                      bottom: 50,
+                      left: 35,
+                      child: _buildGradientOrb(size: 55),
+                    ),
+
+                    // Decorative geometric shapes
+                    Positioned(
+                      top: 90,
+                      right: 40,
+                      child: _buildGeometricShape(size: 50),
+                    ),
+                    Positioned(
+                      bottom: 70,
+                      left: 25,
+                      child: _buildGeometricShape(size: 40),
+                    ),
+
+                    // Photo (no shadow, no frame) with curved bottom
+                    ClipPath(
+                      clipper: _CurvedBottomClipper(),
+                      child: Image.asset(
+                        'assets/images/id.png',
+                        width: 500,
+                        height: 650,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
-          const SizedBox(height: 20),
-          
-          // First name (smaller, lighter)
-          Text(
-            'MIKE LEUSTER',
-            style: GoogleFonts.inter(
-              color: const Color(0xFFCCD0CF),
-              fontSize: 50,
-              fontWeight: FontWeight.w300,
-              letterSpacing: 3,
-            ),
-          ),
-          
-          // Last name (much larger, bold) - moved up for tighter spacing
-          Transform.translate(
-            offset: const Offset(0, -24),
-            child: Text(
-              'ESTRADA',
-              style: GoogleFonts.inter(
-                color: const Color(0xFFCCD0CF),
-                fontSize: 96,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 4,
               ),
             ),
           ),
-          
-          // Subtitle - moved up for tighter spacing and wider letter spacing to align with last name
-          Transform.translate(
-            offset: const Offset(0, -32),
-            child: Text(
-              'BS in Computer Engineering',
-              style: GoogleFonts.inter(
-                color: const Color(0xFFCCD0CF),
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 9,
-              ),
-            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGradientOrb({double size = 60}) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            const Color(0xFF6AB0FF).withOpacity(0.9), // Bright sky blue
+            const Color(0xFF5AA0F2).withOpacity(0.7), // Medium blue
+            const Color(0xFF4A90E2).withOpacity(0.5), // Deep blue
+            const Color(0xFF3A80D2).withOpacity(0.3), // Darker blue
+            Colors.transparent,
+          ],
+          stops: const [0.0, 0.3, 0.6, 0.85, 1.0],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF6AB0FF).withOpacity(0.5),
+            blurRadius: size * 0.5,
+            spreadRadius: size * 0.1,
           ),
-          const SizedBox(height: 48),
-          
-          // Buttons - aligned with subtitle
-          Row(
-            children: [
-              _buildOutlineButton('Resume'),
-              const SizedBox(width: 24),
-              _buildOutlineButton('Portfolio'),
-            ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGeometricShape({double size = 40}) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            const Color(0xFF7AC0FF).withOpacity(0.6), // Light blue
+            const Color(0xFF6AB0FF).withOpacity(0.5), // Sky blue
+            const Color(0xFF5AA0F2).withOpacity(0.4), // Medium blue
+            const Color(0xFF4A90E2).withOpacity(0.2), // Deep blue
+          ],
+          stops: const [0.0, 0.4, 0.7, 1.0],
+        ),
+        border: Border.all(
+          color: const Color(0xFF8AD0FF).withOpacity(0.5),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF6AB0FF).withOpacity(0.4),
+            blurRadius: 8,
+            spreadRadius: 1,
           ),
         ],
       ),
@@ -479,13 +677,21 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 
   Widget _buildPortfolioSidebar() {
     return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFF06141B), // Dark background matching theme
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.navy,
+            AppColors.teal,
+            AppColors.skyBlue,
+          ],
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black54,
-            blurRadius: 10,
-            spreadRadius: 2,
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 12,
+            spreadRadius: 1,
           ),
         ],
       ),
@@ -1024,8 +1230,9 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
     final socialIcons = [
       _SocialIcon(text: 'Bē', url: 'https://behance.net', label: 'Behance'),
       _SocialIcon(text: 'f', url: 'https://facebook.com', label: 'Facebook'),
-      _SocialIcon(text: 'in', url: 'https://linkedin.com', label: 'LinkedIn'),
-      _SocialIcon(text: 'O', url: 'https://instagram.com', label: 'Instagram'),
+      _SocialIcon(text: 'in', url: 'https://linkedin.com/in/mike-leuster-estrada', label: 'LinkedIn'),
+      _SocialIcon(text: 'G', url: 'https://github.com/mikeeyyyy04', label: 'GitHub'),
+      _SocialIcon(text: 'O', url: 'https://instagram.com/_mikeeyyyyyy', label: 'Instagram'),
       _SocialIcon(text: 'P', url: 'https://pinterest.com', label: 'Pinterest'),
       _SocialIcon(text: 'y', url: 'https://twitter.com', label: 'Twitter'),
       _SocialIcon(text: 'W', url: 'https://whatsapp.com', label: 'WhatsApp'),
@@ -1425,5 +1632,198 @@ class _AnimatedHoverPortfolioCardState extends State<_AnimatedHoverPortfolioCard
       ),
     );
   }
+}
+
+// Custom painter for circular gradient background
+class _CircularGradientPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+
+    // Draw multiple gradient circles with rich color transitions
+    for (int i = 0; i < 4; i++) {
+      final gradient = RadialGradient(
+        colors: [
+          const Color(0xFF6AB0FF).withOpacity(0.15 - (i * 0.03)), // Bright sky blue
+          const Color(0xFF5AA0F2).withOpacity(0.12 - (i * 0.025)), // Medium blue
+          const Color(0xFF4A90E2).withOpacity(0.1 - (i * 0.02)), // Deep blue
+          const Color(0xFF3A80D2).withOpacity(0.08 - (i * 0.015)), // Darker blue
+          const Color(0xFF2A70C2).withOpacity(0.05 - (i * 0.01)), // Dark blue
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
+      );
+
+      final paint = Paint()
+        ..shader = gradient.createShader(
+          Rect.fromCircle(center: center, radius: radius - (i * 35)),
+        );
+
+      canvas.drawCircle(
+        center,
+        radius - (i * 35),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+// Custom painter for soft glow effect (like the image)
+class _GlowEffectPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width * 0.5, size.height * 0.3); // Upper-middle position
+    
+    // Create soft glowing light source
+    final glowGradient = RadialGradient(
+      colors: [
+        Colors.white.withOpacity(0.15), // Bright center
+        const Color(0xFFB0D0FF).withOpacity(0.1), // Light blue-white
+        const Color(0xFF90C0EF).withOpacity(0.05), // Soft blue
+        Colors.transparent,
+      ],
+      stops: const [0.0, 0.3, 0.6, 1.0],
+    );
+
+    final paint = Paint()
+      ..shader = glowGradient.createShader(
+        Rect.fromCircle(center: center, radius: size.width * 0.4),
+      );
+
+    canvas.drawCircle(center, size.width * 0.4, paint);
+    
+    // Additional subtle glow layers
+    for (int i = 1; i <= 2; i++) {
+      final subtleGlow = Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Colors.white.withOpacity(0.08 - (i * 0.02)),
+            Colors.transparent,
+          ],
+        ).createShader(
+          Rect.fromCircle(center: center, radius: size.width * (0.3 + i * 0.1)),
+        );
+      
+      canvas.drawCircle(center, size.width * (0.3 + i * 0.1), subtleGlow);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+// Custom painter for gradient circle borders
+class _GradientCirclePainter extends CustomPainter {
+  final double radius;
+  final double width;
+  final List<Color> colors;
+
+  _GradientCirclePainter({
+    required this.radius,
+    required this.width,
+    required this.colors,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    
+    // Create a sweep gradient (circular gradient)
+    final gradient = SweepGradient(
+      center: Alignment.center,
+      colors: colors,
+      stops: List.generate(colors.length, (i) => i / (colors.length - 1)),
+    );
+
+    final paint = Paint()
+      ..shader = gradient.createShader(
+        Rect.fromCircle(center: center, radius: radius),
+      )
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = width
+      ..strokeCap = StrokeCap.round;
+
+    // Draw the circle
+    canvas.drawCircle(center, radius, paint);
+    
+    // Add glow effect with multiple strokes
+    for (int i = 1; i <= 3; i++) {
+      final glowPaint = Paint()
+        ..shader = gradient.createShader(
+          Rect.fromCircle(center: center, radius: radius),
+        )
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = width - (i * 0.5)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, i * 2.0);
+      
+      canvas.drawCircle(center, radius, glowPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+// Custom clipper for photo with curved bottom matching circular line
+class _CurvedBottomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    final radius = 40.0; // Top corner radius
+    final curveRadius = 235.0; // Radius of the smallest circle
+    final curveHeight = 100.0; // How much the curve dips at center
+    
+    // Top-left rounded corner
+    path.moveTo(radius, 0);
+    path.lineTo(size.width - radius, 0);
+    
+    // Top-right rounded corner
+    path.arcToPoint(
+      Offset(size.width, radius),
+      radius: Radius.circular(radius),
+    );
+    
+    // Right side down to where curve starts
+    final rightCurveStart = size.height - curveHeight;
+    path.lineTo(size.width, rightCurveStart);
+    
+    // Curved bottom following circular arc
+    // The arc center is above the photo, creating a concave curve
+    final arcCenterX = size.width / 2;
+    final arcCenterY = rightCurveStart - curveRadius;
+    
+    // Create rect for the arc
+    final arcRect = Rect.fromCircle(
+      center: Offset(arcCenterX, arcCenterY),
+      radius: curveRadius,
+    );
+    
+    // Draw arc from right to left (bottom arc of circle)
+    path.arcTo(
+      arcRect,
+      0.0, // Start angle (right side)
+      math.pi, // Sweep angle (180 degrees for bottom half)
+      false, // largeArc
+    );
+    
+    // Left side up
+    path.lineTo(0, radius);
+    
+    // Top-left rounded corner
+    path.arcToPoint(
+      Offset(radius, 0),
+      radius: Radius.circular(radius),
+    );
+    
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
 
