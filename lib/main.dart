@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 
 /// Project color palette
@@ -1228,36 +1229,29 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 
   Widget _buildFooter() {
     final socialIcons = [
-      _SocialIcon(text: 'Bē', url: 'https://behance.net', label: 'Behance'),
-      _SocialIcon(text: 'f', url: 'https://facebook.com', label: 'Facebook'),
-      _SocialIcon(text: 'in', url: 'https://linkedin.com/in/mike-leuster-estrada', label: 'LinkedIn'),
-      _SocialIcon(text: 'G', url: 'https://github.com/mikeeyyyy04', label: 'GitHub'),
-      _SocialIcon(text: 'O', url: 'https://instagram.com/_mikeeyyyyyy', label: 'Instagram'),
-      _SocialIcon(text: 'P', url: 'https://pinterest.com', label: 'Pinterest'),
-      _SocialIcon(text: 'y', url: 'https://twitter.com', label: 'Twitter'),
-      _SocialIcon(text: 'W', url: 'https://whatsapp.com', label: 'WhatsApp'),
+      _SocialIcon(icon: FontAwesomeIcons.facebook, url: 'https://facebook.com', label: 'Facebook'),
+      _SocialIcon(icon: FontAwesomeIcons.linkedin, url: 'https://linkedin.com/in/mike-leuster-estrada', label: 'LinkedIn'),
+      _SocialIcon(icon: FontAwesomeIcons.github, url: 'https://github.com/mikeeyyyy04', label: 'GitHub'),
+      _SocialIcon(icon: FontAwesomeIcons.instagram, url: 'https://instagram.com/_mikeeyyyyyy', label: 'Instagram'),
     ];
 
     return Padding(
       padding: const EdgeInsets.only(left: 80.0, bottom: 40.0),
       child: Row(
-        children: socialIcons.map((icon) {
+        children: socialIcons.map((socialIcon) {
           return Padding(
             padding: const EdgeInsets.only(right: 24.0),
             child: GestureDetector(
               onTap: () async {
-                final uri = Uri.parse(icon.url);
+                final uri = Uri.parse(socialIcon.url);
                 if (await canLaunchUrl(uri)) {
                   await launchUrl(uri, mode: LaunchMode.externalApplication);
                 }
               },
-              child: Text(
-                icon.text,
-                style: const TextStyle(
-                  color: Color(0xFFCCD0CF),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                ),
+              child: Icon(
+                socialIcon.icon,
+                color: const Color(0xFFCCD0CF),
+                size: 24,
               ),
             ),
           );
@@ -1268,11 +1262,11 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 }
 
 class _SocialIcon {
-  final String text;
+  final IconData icon;
   final String url;
   final String label;
 
-  _SocialIcon({required this.text, required this.url, required this.label});
+  _SocialIcon({required this.icon, required this.url, required this.label});
 }
 
 // Star field widget for background particles
