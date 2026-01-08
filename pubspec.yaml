@@ -13,7 +13,6 @@ dependencies:
   url_launcher: ^6.2.2
   flutter_svg: ^2.0.9
   google_fonts: ^6.1.0
-  font_awesome_flutter: ^10.9.1
 
 dev_dependencies:
   flutter_test:
@@ -34,4 +33,3 @@ flutter:
     - assets/images/id.png
     - assets/images/gr.jpg
     - assets/images/bl.jpg
-

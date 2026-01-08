@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 
 /// Project color palette
@@ -1229,10 +1228,10 @@ class _PortfolioHomeState extends State<PortfolioHome> with TickerProviderStateM
 
   Widget _buildFooter() {
     final socialIcons = [
-      _SocialIcon(icon: FontAwesomeIcons.facebook, url: 'https://facebook.com', label: 'Facebook'),
-      _SocialIcon(icon: FontAwesomeIcons.linkedin, url: 'https://linkedin.com/in/mike-leuster-estrada', label: 'LinkedIn'),
-      _SocialIcon(icon: FontAwesomeIcons.github, url: 'https://github.com/mikeeyyyy04', label: 'GitHub'),
-      _SocialIcon(icon: FontAwesomeIcons.instagram, url: 'https://instagram.com/_mikeeyyyyyy', label: 'Instagram'),
+      _SocialIcon(icon: Icons.share, url: 'https://facebook.com', label: 'Facebook'),
+      _SocialIcon(icon: Icons.business_center, url: 'https://linkedin.com/in/mike-leuster-estrada', label: 'LinkedIn'),
+      _SocialIcon(icon: Icons.code, url: 'https://github.com/mikeeyyyy04', label: 'GitHub'),
+      _SocialIcon(icon: Icons.photo_camera, url: 'https://instagram.com/_mikeeyyyyyy', label: 'Instagram'),
     ];
 
     return Padding(
