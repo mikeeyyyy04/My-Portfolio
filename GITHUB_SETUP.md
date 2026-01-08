@@ -228,3 +228,6 @@ To use a custom domain:
 2. Update the GitHub Actions workflow to include the CNAME file
 3. Configure DNS settings with your domain provider
 
+
+
+

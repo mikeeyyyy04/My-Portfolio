@@ -272,3 +272,6 @@ Create `netlify.toml`:
 - The app works offline (service worker included)
 - Make sure to test on different browsers before deploying
 
+
+
+
